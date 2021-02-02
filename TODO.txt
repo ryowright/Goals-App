@@ -1,0 +1,42 @@
+
+---------- AUTH ----------
+- Write tests
+- Email verification for registration   -- DONE
+- Setup logout on React                 -- DONE
+- Setup email verification and registration -- DONE
+- Fix confirm password on registration  -- DONE
+- Password reset backend                -- DONE
+- Resend verification/reset emails
+- Password reset redirect and message (Frontend)
+- Username and password white/blacklist (Backend and Frontend)
+- Password strength meter
+- Delete unverified accounts after one day (Backend)
+- Allow for email or username login
+- Limit total amount of goals a user can have (20-30)
+
+- Handle potential errors
+    Registration:   -- DONE
+     - Passwords do not match   -- DONE
+     - There is already an account associated with this email   -- DONE
+     - Password must be longer than 6 characters    -- DONE
+     - Invalid email address    -- DONE
+    Login:
+     - Incorrect Username and/or Password   -- DONE
+     - Account is not yet verified (maybe)  -- DONE
+    Forgot Password:    -- DONE
+     - Invalid email address        -- DONE
+     - Email address does not exist -- DONE
+    Reset Password: -- DONE
+     - Passwords do not match   -- DONE
+     - Password must be longer than 6 characters    -- DONE
+
+- Fix errors showing up from other pages    -- DONE
+- Update goal date formatting   -- DONE
+- Make sure update goal works (database issue) -- DONE
+
+---------- Dashboard ----------
+- Create drawer on Appbar   -- DONE
+- Fix error flashing on submit goal dialog  -- DONE
+
+After project is done:
+- Convert all class components to functional
