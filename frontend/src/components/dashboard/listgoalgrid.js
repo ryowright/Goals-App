@@ -16,7 +16,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Divider from '@material-ui/core/Divider';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -69,7 +68,6 @@ const EditDialog = (props) => {
   let formattedDeadline = "";
 
   const [ openError, setOpenError ] = useState(true);
-  // const [ openDialog, setOpenDialog ] = useState(true);
   const [showRenewable, setShowRenewable] = useState(props.goal.renewable);
   const [showProgress, setShowProgress] = useState(props.goal.setNumericGoal);
   const [renewType, setRenewType] = useState(props.goal.renewType || "");
@@ -335,26 +333,22 @@ const GoalGrid = (props) => {
 
   const handleFavorite = (id) => {
     handleClose();
-    console.log(`${favorite ? "Unfavorite" : "Favorite"} ${id}`);
     dispatch(updateGoal(id, { ...goalBody, favorite: !favorite }));
     setFavorite(favorite => !favorite);
   }
 
   const handleEdit = (id) => {
     handleClose();
-    console.log(`edit ${id}`);
     handleClickOpen();
   }
 
   const handleRemove = (id) => {
     handleClose();
-    console.log(`remove ${id}`);
     dispatch(deleteGoal(id));
   }
 
   const handleComplete = (id) => {
     handleClose();
-    console.log(`complete ${id}`);
     dispatch(updateGoal(id, { ...goalBody, completed: true }))
   }
 

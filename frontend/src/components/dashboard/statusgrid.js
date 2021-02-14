@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,11 +57,6 @@ const StatusGrid = (props) => {
               </Typography>
               <CircularProgressWithLabel value={completedGoals / numGoals * 100} size={100}/>
             </Grid>
-            {/* <Grid item xs>
-              <Button variant="contained" color="primary" onClick={() => changeValue(value + 1)}>
-                Primary
-              </Button>
-            </Grid> */}
           </Grid>
         </Paper>
       </Grid>

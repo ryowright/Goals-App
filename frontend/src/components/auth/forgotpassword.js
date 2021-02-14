@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, InputAdornment, Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { AccountCircle, LockRounded } from '@material-ui/icons';
+import { AccountCircle } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { forgotPasswordPost } from '../../actions/auth';
@@ -24,7 +24,6 @@ const ForgotPassword = () => {
         const email = document.getElementById('email').value
         setShow(true);
 
-        console.log({ email })
         dispatch(forgotPasswordPost(email));
     }
 

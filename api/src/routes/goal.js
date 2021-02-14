@@ -1,6 +1,7 @@
 const express = require('express');
 const Goal = require('../models/goal');
 const auth = require('../middleware/auth');
+const bcrypt = require('bcrypt');
 
 const router = new express.Router();
 
@@ -149,6 +150,13 @@ router.delete('/delete-one/:id', auth, async (req, res) => {
 // DELETE ALL GOALS
 router.delete('/delete-all', auth, async (req, res) => {
     try {
+        const isMatch = await bcrypt.compare(req.body.password, req.user.password);
+
+        if (!isMatch) {
+            console.log('no match');
+            return res.status(401).send({ error: 'Incorrect Password.' });
+        }
+
         await Goal.deleteMany({ owner: req.user._id });
         res.status(200).send({ message: 'Deleted all goals successfully.' });
     } catch(e) {

@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import Divider from '@material-ui/core/Divider';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -81,7 +80,6 @@ function FormDialog() {
     setShowProgress(false);
     setShowRenewable(false);
     setOpen(true);
-    console.log(open);
   };
 
   const handleClose = () => {
@@ -123,7 +121,6 @@ function FormDialog() {
       numericGoal,
     };
 
-    // console.log(body);
     dispatch(createGoal(body));
   };
 
@@ -139,7 +136,6 @@ function FormDialog() {
     setShowProgress(event.target.checked);
   };
 
-  // console.log('render')
   return (
     <div style={{ padding: 0 }}>
       <Button variant="outlined" color="primary" onClick={handleClickOpen} fullWidth>

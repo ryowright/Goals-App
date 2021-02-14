@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, InputAdornment, Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { LockRounded } from '@material-ui/icons';
-import { Link, useParams, Redirect } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import { resetPasswordPost } from '../../actions/auth';
 import { connect, useDispatch, useSelector } from 'react-redux';

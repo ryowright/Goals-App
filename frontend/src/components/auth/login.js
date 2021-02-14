@@ -21,7 +21,7 @@ class Login extends Component {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-        this.setState({show: true})
+        this.setState({show: true});
         this.props.login(username, password);
     }
 

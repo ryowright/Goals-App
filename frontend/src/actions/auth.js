@@ -5,52 +5,56 @@ import {
     LOGIN_FAIL,
     GET_USER_SUCCESS,
     GET_USER_FAIL,
-    USER_LOADING,
-    USER_LOADED,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     PASSWORD_RESET_SUCCESS,
     PASSWORD_RESET_FAIL,
     FORGOT_PASSWORD_SUCCESS,
-    FORGOT_PASSWORD_FAIL
+    FORGOT_PASSWORD_FAIL,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAIL,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
 } from './types';
 
 const domain = 'http://localhost:3000'
 
-export const login = (username, password) => dispatch => {
-    axios.post(`${domain}/api/user/login/`, {
-        "name": username,
-        "password": password
-    }).then((res) => {
+export const login = (username, password) => async dispatch => {
+    try {
+        const res = await axios.post(`${domain}/api/user/login/`, {
+            "name": username,
+            "password": password
+        });
         if (res.status === 200) {
+            await localStorage.setItem('token', res.data.token);
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data,
                 username: username,
             });
-
-            localStorage.setItem('token', res.data.token)
         }
-    }).catch((e) => {
+    }
+    catch(e) {
         dispatch({
             type: LOGIN_FAIL,
             error: e.response.data.error
         });
-    });
+    }
 }
 
-export async function getUser(dispatch, getState) {
+
+export const getUser = () => (dispatch) => {
     const token = getToken();
 
-    await axios.get(`${domain}/api/user/me/`, {
+    axios.get(`${domain}/api/user/me/`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     }).then((res) => {
         dispatch({
             type: GET_USER_SUCCESS,
-            // COMPLETE
+            payload: res.data,
         });
     }).catch((e) => {
         dispatch({
@@ -60,37 +64,16 @@ export async function getUser(dispatch, getState) {
     });
 }
 
-// export const getUser = () => async (dispatch) => {    // ----
-//     const token = getToken();
-//     console.log('getting user');
-
-//     await axios.get(`${domain}/api/user/me/`, {
-//         headers: {
-//             'Authorization': `Bearer ${token}`
-//         }
-//     }).then((res) => {
-//         dispatch({
-//             type: GET_USER_SUCCESS,
-//             // COMPLETE
-//         });
-//     }).catch((e) => {
-//         dispatch({
-//             type: GET_USER_FAIL,
-//             error: e.response.data.error
-//         });
-//     });
-// }
-
 
 export const logout = () => dispatch => {
     const token = getToken();
+    localStorage.clear();
 
     axios.post(`${domain}/api/user/logout/`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     }).then((res) => {
-        console.log('logout successful')
         if (res.status === 200) {
             dispatch({
                 type: LOGOUT_SUCCESS,
@@ -155,6 +138,48 @@ export const resetPasswordPost = (password, resetToken) => dispatch => {
         dispatch({
             type: PASSWORD_RESET_FAIL,
             error: e.response.data.error
+        });
+    });
+}
+
+export const deleteAccount = (password) => dispatch => {
+    const token = getToken();
+
+    axios.delete(`${domain}/api/user/me/`, {
+        data: {
+            'password': password
+        },
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((res) => {
+        localStorage.clear();
+        dispatch({
+            type: DELETE_USER_SUCCESS,
+        });
+    }).catch((e) => {
+        dispatch({
+            type: DELETE_USER_FAIL,
+            error: e.response.data.error,
+        });
+    });
+}
+
+export const updateUser = (body) => dispatch => {
+    const token = getToken();
+
+    axios.patch(`${domain}/api/user/update/`, {...body}, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).then((res) => {
+        dispatch({
+            type: UPDATE_USER_SUCCESS,
+        });
+    }).catch((e) => {
+        dispatch({
+            type: UPDATE_USER_FAIL,
+            error: e.response.data.error,
         });
     });
 }

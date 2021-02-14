@@ -25,16 +25,20 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    localStorage.setItem('route', '/');
+  });
+
+  useEffect(() => {
+    dispatch(getAllGoals());
+  }, [dispatch]);
+
   const { goals } = useSelector(state => ({
     goals: state.goal.goals,
   }));
   const numGoals = goals.length;
   const numCompletedGoals = goals.filter(goal => goal.completed).length;
   const incompleteGoals = goals.filter(goal => !goal.completed);
-
-  useEffect(() => {                // MAY CAUSE JWT MALFORMED ERROR
-    dispatch(getAllGoals());
-  }, [dispatch]);
 
   return(
   <div className={classes.root} >

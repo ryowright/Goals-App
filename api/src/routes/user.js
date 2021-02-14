@@ -36,7 +36,8 @@ router.post('/login', async (req, res) => {
 // LOGOUT
 router.post('/logout', auth, async (req, res) => {
     try {
-        req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
+        req.user.tokens = [];   // functionality of logout all
+        // req.user.tokens = req.user.tokens.filter((token) => token.token !== req.token);
         await req.user.save();
 
         res.status(200).send({ message: 'Logout successful.' });
@@ -156,22 +157,41 @@ router.post('/reset-password-email', async (req, res) => {
 })
 
 // GET MY PROFILE
-router.get('/me', auth, async (req, res) => {
-   res.status(200).send(req.user);
+router.get('/me', auth, async (req, res) => {  
+    // console.log(req.user);  
+    res.status(200).send({
+        name: req.user.name,
+        email: req.user.email,
+    });
 })
 
 // UPDATE USER CREDENTIALS
 router.patch('/update', auth, async (req, res) => {
     const updates = Object.keys(req.body);
-    const fields = ['name', 'email', 'password'];
+    const fields = ['name', 'email', 'password', 'oldPassword'];
     const isValid = updates.every((update) => fields.includes(update));
 
     if (!isValid) {
-        res.status(400).send({ message: 'Invalid updates!' });
+        return res.status(400).send({ error: 'Invalid updates!' });
     }
 
     try {
-        updates.forEach((update) => req.user[update] = req.body[update]);
+        if (updates.includes('password')) {
+            if (!req.body.oldPassword) {
+                return res.status(401).send({ error: 'The old password must be entered before updating to a new one.' })
+            }
+
+            const isMatch = await bcrypt.compare(req.body.oldPassword, req.user.password);
+
+            if (!isMatch) {
+                return res.status(401).send({ error: 'Incorrect Password.' });
+            }
+        }
+
+        updates.forEach((update) => {
+            if (update !== 'oldPassword') {
+                req.user[update] = req.body[update]
+            }});
         await req.user.save();
         res.status(200).send(req.user);
     } catch(e) {
@@ -182,8 +202,16 @@ router.patch('/update', auth, async (req, res) => {
 // DELETE MY ACCOUNT
 router.delete('/me', auth, async (req, res) => {
     try {
+        console.log(req.body);
+        const isMatch = await bcrypt.compare(req.body.password, req.user.password);
+
+        console.log('delete account');
+        if (!isMatch) {
+            return res.status(401).send({ error: 'Incorrect Password.' });
+        }
+
         await req.user.remove();
-        res.send(req.user);
+        res.send({ message: "Account successfully deleted." });
     } catch(e) {
         res.status(500).send();
     }

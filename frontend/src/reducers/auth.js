@@ -3,15 +3,17 @@ import {
     LOGIN_FAIL,
     GET_USER_SUCCESS,
     GET_USER_FAIL,
-    USER_LOADED,
-    USER_LOADING,
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     PASSWORD_RESET_SUCCESS,
     PASSWORD_RESET_FAIL,
     FORGOT_PASSWORD_SUCCESS,
-    FORGOT_PASSWORD_FAIL
+    FORGOT_PASSWORD_FAIL,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAIL,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
 } from '../actions/types';
 
 const initialState = {
@@ -50,6 +52,7 @@ export default function auth(state = initialState, action) {
             return {
                 ...state,
                 isAuth: true,
+                username: action.payload.name,
             };
         case GET_USER_FAIL:
             return {
@@ -84,6 +87,29 @@ export default function auth(state = initialState, action) {
                 ...state,
                 error: action.error,
             };
+
+        case UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+            }
+
+        case UPDATE_USER_FAIL:
+            return {
+                ...state,
+                error: action.error,
+            }
+
+        case DELETE_USER_SUCCESS:
+            return {
+                ...state,
+                isAuth: false,
+            }
+        
+        case DELETE_USER_FAIL:
+            return {
+                ...state,
+                error: action.error,
+            }
         default:
             return state;
     }

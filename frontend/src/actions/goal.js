@@ -25,7 +25,6 @@ export const getAllGoals = () => dispatch => {
             'Authorization': `Bearer ${token}`
         }
     }).then((res) => {
-        console.log(res.data);
         dispatch({
             type: GET_ALL_SUCCESS,
             payload: res.data
@@ -80,7 +79,6 @@ export const updateGoal = (id, body) => dispatch => {
             });
         }
     }).catch((e) => {
-        console.log(e.response.data.error);
         dispatch({
             type: UPDATE_GOAL_FAIL,
             error: e.response.data.error,
@@ -110,13 +108,16 @@ export const deleteGoal = (id) => dispatch => {
     });
 }
 
-export const deleteAllGoals = () => dispatch => {
+export const deleteAllGoals = (password) => dispatch => {
     const token = getToken();
 
     axios.delete(`${domain}/api/goal/delete-all/`, {
+        data: {
+            'password': password
+        },
         headers: {
             'Authorization': `Bearer ${token}`
-        }
+        },
     }).then((res) => {
         if(res.status === 200) {
             dispatch({

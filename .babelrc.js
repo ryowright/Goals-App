@@ -34,12 +34,6 @@ const plugins = [
     [
         '@babel/plugin-proposal-class-properties'
     ],
-    [
-      'transform-runtime',
-      {
-        'regenerator': true
-      }
-    ]
   ];
   
   module.exports = {plugins, presets};

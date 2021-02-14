@@ -193,17 +193,3 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps, { register })(Register);
-
-
-
-{/* <Typography className="reg-description" align="center">{this.regMessage}</Typography> */}
-
-// {this.state.error ?
-//     <Alert variant='danger' onClose={() => this.setState({error: false})} dismissible>
-//         <Alert.Heading align="center">Error</Alert.Heading>
-//         <p align="center">
-//             {this.state.errorMessage}
-//         </p>
-//     </Alert>  :
-//     ""
-//     }

@@ -12,6 +12,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect
   } from "react-router-dom";
 import './static/App.css';
 import ProtectedRoute from './components/routes/protectedroute';
@@ -22,16 +23,15 @@ class App extends Component {
     store = createStore(rootReducer, applyMiddleware(thunk));
 
     render() {
-        console.log('app');
         return (
             <div>
             <Provider store={this.store}>
             <Router>
+            {localStorage.getItem('route') ? <Redirect to={`${localStorage.getItem('route')}`}/> : ""}
             <Switch>
-                {/* <ProtectedRoute exact path="/logout" component={Dashboard} /> */}
                 <ProtectedRoute exact path="/settings" component={SettingsGrid} />
                 <ProtectedRoute exact path="/" component={Dashboard} />
-                <Route path="/login">
+                <Route exact path="/login">
                     <Login />
                 </Route>
                 <Route path="/register">
@@ -48,10 +48,6 @@ class App extends Component {
                     </>
                     )}
                 />
-                {/* Remove dashboard route in production
-                <Route path="/dashboard">
-                    <Dashboard />
-                </Route> */}
             </Switch>
             </Router>
             </Provider>

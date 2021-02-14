@@ -12,7 +12,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 // Drawer
 import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
@@ -44,7 +43,6 @@ const Appbar = (props) => {
     const [ showDrawer, setShowDrawer ] = useState(false);
 
     const handleLogout = () => {
-      console.log('attempting logout');
       dispatch(logout());
     }
 
@@ -55,13 +53,18 @@ const Appbar = (props) => {
       onClick={() => setShowDrawer(false)}
     >
       <List>
-        {['My Profile', 'Settings'].map((text) => (
-          <ListItem button key={text}>
-            <Link to="/settings">
-              <ListItemText primary={text} />
-            </Link>
+        <Link to="/settings">
+          <ListItem button key="settings">
+            <ListItemText primary="Settings" />
           </ListItem>
-        ))}
+        </Link>
+      </List>
+      <List>
+        <Link to="/">
+          <ListItem button key="mygoals">
+            <ListItemText primary="My Goals" />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );
