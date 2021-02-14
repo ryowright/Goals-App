@@ -67,7 +67,7 @@
   "scripts": {
     "heroku-prebuild": "npm install --dev",
     "test": "jest",
-    "start": "webpack serve --hot --open --history-api-fallback",
+    "start": "nodemon api/src/index.js",
     "build": "webpack --config webpack.config.js --mode production"
   },
   "proxy": "http://localhost:3000",
