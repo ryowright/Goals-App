@@ -18,7 +18,8 @@ import {
     DELETE_USER_FAIL,
 } from './types';
 
-const domain = 'http://localhost:3000'
+// const domain = 'http://localhost:3000'
+const domain = 'http://goal-setting-web-app.herokuapp.com/login';
 
 export const login = (username, password) => async dispatch => {
     try {

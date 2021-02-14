@@ -15,7 +15,8 @@ import {
     DELETE_ALL_GOALS_FAIL,
 } from './types';
 
-const domain = 'http://localhost:3000';
+// const domain = 'http://localhost:3000';
+const domain = 'http://goal-setting-web-app.herokuapp.com/login';
 
 export const getAllGoals = () => dispatch => {
     const token = getToken();
