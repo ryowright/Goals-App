@@ -1,6 +1,9 @@
 {
   "name": "Goals-App",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.15.3"
+  },
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -62,6 +65,7 @@
     "webpack-cli": "^4.5.0"
   },
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "test": "jest",
     "start": "webpack serve --hot --open --history-api-fallback",
     "build": "webpack --config webpack.config.js --mode production"
