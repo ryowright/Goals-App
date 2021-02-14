@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
     "bcrypt": "^5.0.0",
+    "bootstrap": "^4.6.0",
     "child_process": "^1.0.2",
     "clsx": "^1.1.1",
     "cors": "^2.8.5",
@@ -40,8 +41,6 @@
     "style-loader": "^2.0.0",
     "svg-url-loader": "^7.1.1",
     "validator": "^13.5.2",
-    "webpack": "^5.16.0",
-    "webpack-cli": "^4.4.0",
     "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
@@ -55,11 +54,12 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "bootstrap": "^4.6.0",
     "html-webpack-plugin": "^5.0.0-alpha.3",
     "jest": "^26.6.3",
     "path": "^0.12.7",
-    "regenerator-runtime": "^0.13.7"
+    "regenerator-runtime": "^0.13.7",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
   },
   "scripts": {
     "test": "jest",
