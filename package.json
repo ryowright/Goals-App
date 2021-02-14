@@ -70,7 +70,7 @@
     "start": "nodemon api/src/index.js",
     "build": "webpack --config webpack.config.js --mode production"
   },
-  "proxy": "http://localhost:3000",
+  "proxy": "http://goal-setting-web-app.herokuapp.com",
   "keywords": [],
   "author": "",
   "license": "ISC"
