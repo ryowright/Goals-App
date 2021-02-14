@@ -66,6 +66,7 @@
     "start": "webpack serve --hot --open --history-api-fallback",
     "build": "webpack --config webpack.config.js --mode production"
   },
+  "proxy": "http://localhost:3000",
   "keywords": [],
   "author": "",
   "license": "ISC"
