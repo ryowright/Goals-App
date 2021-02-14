@@ -19,7 +19,7 @@ import {
 } from './types';
 
 // const domain = 'http://localhost:3000'
-const domain = 'https://goal-setting-web-app.herokuapp.com/login';
+const domain = 'https://goal-setting-web-app.herokuapp.com';
 
 export const login = (username, password) => async dispatch => {
     try {
