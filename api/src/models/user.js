@@ -94,12 +94,12 @@ userSchema.methods.registerNewUser = async function() {
         text: `
             Hello ${user.name}, thank you for creating a Goals App account.
             Please copy and paste the address below to verify your account.
-            http://${hostURL}/api/user/verify-email?token=${user.emailToken}`,
+            ${hostURL}/api/user/verify-email?token=${user.emailToken}`,
         html: `
             <h1>Hello ${user.name},</h1>
             <p>thank you for creating a Goals App account.</p>
             <p>Please click the link below to verify your account.</p>
-            <a href="http://${hostURL}/api/user/verify-email?token=${user.emailToken}">Verify your account</a>
+            <a href="${hostURL}/api/user/verify-email?token=${user.emailToken}">Verify your account</a>
             <h3>If you did not register this account, please ignore this email.</h3>
             `
     }
@@ -113,7 +113,7 @@ userSchema.methods.registerNewUser = async function() {
 
 userSchema.methods.sendPasswordReset = async function() {
     const user = this
-    const frontendURL = process.env.FRONTEND_URL
+    const hostURL = process.env.HOST_URL
 
     sgMail.setApiKey(process.env.SENDGRID_TOKEN)
 
@@ -125,13 +125,13 @@ userSchema.methods.sendPasswordReset = async function() {
             A password reset was requested for your Goals App account.
             If you did not request a password reset, please ignore this
             email. Otherwise, the link below will reset your password.
-            http://${frontendURL}/reset-password/${user.resetToken}`,
+            ${hostURL}/reset-password/${user.resetToken}`,
         html: `
             <h1>Hello ${user.name},</h1>
             <p>A password reset was requested for your Goals App account.</p>
             <p>If you did not request a password reset, please ignore this email.</p>
             <p>Otherwise, the link below will reset your password.</p>
-            <a href="http://${frontendURL}/reset-password/${user.resetToken}">Reset Password</a>
+            <a href="${hostURL}/reset-password/${user.resetToken}">Reset Password</a>
             `
     }
 
