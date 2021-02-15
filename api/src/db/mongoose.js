@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/goals-app-api', {
+const URI = 
+    'mongodb+srv://dbUser:dbUserPassword@cluster0.f8zhd.mongodb.net/Cluster0?retryWrites=true&w=majority';
+
+mongoose.connect(URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
