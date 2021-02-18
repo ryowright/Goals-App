@@ -18,7 +18,7 @@ app.use('/api/goal', goalRouter);
 // app.route('/*').get(function(req, res) {
 //     return res.sendFile(path.join(__dirname, '../../frontend/src/index.html'))
 // })
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 
