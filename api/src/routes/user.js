@@ -89,7 +89,7 @@ router.post('/register', async (req, res) => {
         await user.registerNewUser();
         await user.save();
 
-        res.status(200).send({ message: 'Verification email has been sent.' }); // REMOVE LATER
+        res.status(201).send({ message: 'Verification email has been sent.' }); // REMOVE LATER
     } catch (e) {
         res.status(400).send('register failed');
     }
@@ -158,12 +158,11 @@ router.post('/reset-password-email', async (req, res) => {
 
 // GET MY PROFILE
 router.get('/me', auth, async (req, res) => {  
-    // console.log(req.user);  
     res.status(200).send({
         name: req.user.name,
         email: req.user.email,
     });
-})
+});
 
 // UPDATE USER CREDENTIALS
 router.patch('/update', auth, async (req, res) => {
@@ -202,10 +201,8 @@ router.patch('/update', auth, async (req, res) => {
 // DELETE MY ACCOUNT
 router.delete('/me', auth, async (req, res) => {
     try {
-        console.log(req.body);
         const isMatch = await bcrypt.compare(req.body.password, req.user.password);
 
-        console.log('delete account');
         if (!isMatch) {
             return res.status(401).send({ error: 'Incorrect Password.' });
         }

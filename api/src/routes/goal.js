@@ -9,20 +9,18 @@ const router = new express.Router();
 // CREATE GOAL
 router.post('/create', auth, async (req, res) => {
     const renewType = req.body.renewType;
-    console.log(renewType);
     const renewable = req.body.renewable;
     const numericGoal = req.body.numericGoal;
     const progress = req.body.progress;
     const setNumericGoal = req.body.setNumericGoal;
     const reqGoal = req.body.goal;
 
-
     if ((!renewType && renewable) || (renewType && !renewable) || reqGoal.trim().length === 0) {
         return res.status(400).send({ error: "Required fields must be filled out." });
     }
 
     if ((!numericGoal && setNumericGoal) ||
-        (!progress && setNumericGoal) || 
+        (progress == null && setNumericGoal) || 
         (numericGoal && !setNumericGoal) ||
         (progress && !setNumericGoal)) {
         return res.status(400).send({ error: "Required fields must be filled out." });
@@ -33,8 +31,6 @@ router.post('/create', auth, async (req, res) => {
             return res.status(400).send({ error: "Current progress cannot be greater than or equal to goal." });
         }
     }
-
-    console.log({...req.body})
 
     const goal = new Goal({
         ...req.body,
@@ -51,7 +47,6 @@ router.post('/create', auth, async (req, res) => {
 
 // GET ALL GOALS FOR LOGGED IN USER
 router.get('/get-all', auth, async (req, res) => {
-    console.log('attempting get all')
     const match = {};
 
     if (req.query.completed) {
@@ -95,7 +90,6 @@ router.patch('/update-one/:id', auth, async (req, res) => {
     ];
     const isValid = updates.every((update) => fields.includes(update));
 
-    console.log(req.body);
     if (!isValid) {
         return res.status(400).send({ error: 'Invalid updates.' });
     }
@@ -105,7 +99,7 @@ router.patch('/update-one/:id', auth, async (req, res) => {
     }
 
     if ((!numericGoal && setNumericGoal) ||
-        (!progress && setNumericGoal) || 
+        (progress == null && setNumericGoal) || 
         (numericGoal && !setNumericGoal) ||
         (progress && !setNumericGoal)) {
         return res.status(400).send({ error: "Required fields must be filled out." });
@@ -153,7 +147,6 @@ router.delete('/delete-all', auth, async (req, res) => {
         const isMatch = await bcrypt.compare(req.body.password, req.user.password);
 
         if (!isMatch) {
-            console.log('no match');
             return res.status(401).send({ error: 'Incorrect Password.' });
         }
 

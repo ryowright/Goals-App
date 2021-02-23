@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
+require('dotenv').config;
 
-const URI = 
-    'mongodb+srv://dbUser:dbUserPassword@cluster0.f8zhd.mongodb.net/Cluster0?retryWrites=true&w=majority';
 
-mongoose.connect(URI, {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
-    // autoindex: false -- add later when deploying
+    useUnifiedTopology: true,
+    // autoindex: false // -- add later when deploying
 }).catch((e) => console.log('Unable to connect to database.'))

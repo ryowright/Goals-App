@@ -76,7 +76,6 @@ userSchema.methods.generateAuthToken = async function() {
     user.tokens = user.tokens.concat({ token })
     await user.save()
 
-    console.log('Token generated.')
     return token
 }
 
@@ -104,11 +103,11 @@ userSchema.methods.registerNewUser = async function() {
             `
     }
 
-    sgMail.send(msg).then(() => {
-        console.log('Email sent')
-    }).catch((error) => {
-        console.log(error)
-    })
+    try {
+        await sgMail.send(msg);
+    } catch(e) {
+
+    }
 }
 
 userSchema.methods.sendPasswordReset = async function() {
@@ -136,9 +135,8 @@ userSchema.methods.sendPasswordReset = async function() {
     }
 
     sgMail.send(msg).then(() => {
-        console.log('Email sent')
     }).catch((error) => {
-        console.log(error)
+
     })
 }
 

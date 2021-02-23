@@ -88,7 +88,7 @@ const goalSchema = new mongoose.Schema({
     tags: {
         type: [String],
         validate(values) {
-            isValid = values.every((value) => value.length < 25)
+            const isValid = values.every((value) => value.length < 25)
             if(!isValid) {
                 throw new Error('Tags cannot be longer than 25 characters.')
             }

@@ -9,7 +9,6 @@ const auth = async (req, res, next) => {
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
         if (!user) {
-            console.log('no token')
             throw new Error('No token found for user.')
         }
 
